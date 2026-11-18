@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>অনলাইন ইনকাম | ডিজিটাল সুযোগ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ONE PAGE – NO SCROLL (locked everywhere, incl. mobile) */
+html{
+    height:100%;
+    overflow:hidden;
+    overscroll-behavior:none;
+}
+
+body{
+    font-family:'Hind Siliguri',sans-serif;
+    color:#fff;
+    background:#08091d;
+    overflow:hidden;
+    overscroll-behavior:none;
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    touch-action:manipulation;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ===== BACKGROUND ===== */
+.bg{
+    position:fixed;inset:0;z-index:-5;pointer-events:none;
+    background:
+      radial-gradient(ellipse at 15% 10%,#a000b766,transparent 45%),
+      radial-gradient(ellipse at 85% 25%,#005bba66,transparent 45%),
+      radial-gradient(ellipse at 50% 100%,#6900a666,transparent 55%),
+      #08091d;
+}
+.orb{
+    position:fixed;width:320px;height:320px;border-radius:50%;
+    filter:blur(110px);opacity:.4;z-index:-3;pointer-events:none;
+    animation:move 9s infinite alternate ease-in-out;
+}
+.orb1{background:#e000ff;top:5%;left:-140px}
+.orb2{background:#00cfff;right:-140px;bottom:5%;animation-delay:-4s}
+@keyframes move{to{transform:translate(90px,70px) scale(1.25)}}
+
+/* floating sparkles */
+.spark{
+    position:fixed;width:6px;height:6px;border-radius:50%;
+    background:#fff;opacity:0;z-index:-2;pointer-events:none;
+    box-shadow:0 0 10px #fff,0 0 20px #c17aff;
+    animation:float 6s infinite linear;
+}
+@keyframes float{
+    0%{opacity:0;transform:translateY(0)}
+    20%{opacity:.9}
+    100%{opacity:0;transform:translateY(-60vh)}
+}
+
+/* falling money (taka / coins) */
+.money{
+    position:fixed;top:-60px;z-index:-1;pointer-events:none;
+    opacity:.55;
+    will-change:transform;
+    animation:fall linear infinite;
+    filter:drop-shadow(0 0 8px #ffd54a88);
+}
+@keyframes fall{
+    0%  {transform:translate(0,0) rotate(0deg)}
+    25% {transform:translate(25px,28vh) rotate(90deg)}
+    50% {transform:translate(-20px,56vh) rotate(180deg)}
+    75% {transform:translate(20px,84vh) rotate(270deg)}
+    100%{transform:translate(0,115vh) rotate(360deg)}
+}
+
+/* gold coin burst around the button */
+.coin-burst{
+    position:absolute;left:50%;top:60%;
+    font-size:22px;pointer-events:none;opacity:0;
+    animation:burst 2.4s infinite ease-out;
+}
+@keyframes burst{
+    0%  {opacity:0;transform:translate(-50%,-50%) scale(.4)}
+    15% {opacity:1}
+    100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.1) rotate(var(--r))}
+}
+
+/* ===== HEADER ===== */
+header{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:20px 16px 0;
+    font-weight:700;font-size:20px;
+}
+.logo-icon{
+    width:40px;height:40px;display:grid;place-items:center;
+    border-radius:12px;font-size:20px;
+    background:linear-gradient(135deg,#f000ff,#653bff,#00d9ff);
+    box-shadow:0 0 22px #9b36ff99;
+}
+header span{color:#c17aff}
+
+/* ===== MAIN (CENTER) ===== */
+main{
+    flex:1;
+    min-height:0;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    text-align:center;
+    padding:10px 18px;
+    gap:clamp(14px,2.6vh,24px);
+}
+
+.tag{
+    padding:7px 18px;border-radius:30px;
+    border:1px solid #a84dff88;background:#8c29ff22;
+    color:#ecd0ff;font-size:14px;font-weight:500;
+}
+
+h1{
+    font-size:clamp(30px,7vw,60px);
+    font-weight:700;line-height:1.3;
+}
+.grad{
+    background:linear-gradient(90deg,#ff50d6,#a46aff,#00dcff,#ff50d6);
+    background-size:300% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shift 6s linear infinite;
+}
+@keyframes shift{to{background-position:300% 0}}
+
+.sub{
+    max-width:560px;
+    font-size:clamp(15px,2.2vw,18px);
+    line-height:1.8;color:#cfd0ea;
+}
+
+/* ===== THE BUTTON ===== */
+.btn-wrap{
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;
+    margin:clamp(6px,2vh,18px) 0;
+}
+
+.hand{
+    font-size:34px;
+    animation:bounce 1.1s infinite ease-in-out;
+    margin-bottom:6px;
+    filter:drop-shadow(0 0 10px #ff50d6);
+}
+@keyframes bounce{50%{transform:translateY(10px)}}
+
+.main-btn{
+    position:relative;isolation:isolate;overflow:hidden;
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-width:min(320px,88vw);
+    padding:22px 42px;
+    border-radius:20px;
+    font-family:'Hind Siliguri',sans-serif;
+    font-size:clamp(22px,4.5vw,28px);
+    font-weight:700;
+    color:#fff;text-decoration:none;
+    background:linear-gradient(110deg,#ed22cc,#783cff,#00c9ff,#ed22cc);
+    background-size:300% 300%;
+    border:2px solid #ffffffaa;
+    box-shadow:0 0 30px #a52bffaa,0 0 60px #ed22cc55;
+    animation:gradient 4s linear infinite, pulse 1.8s infinite ease-in-out;
+    transition:transform .25s;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+}
+@keyframes gradient{to{background-position:300% 50%}}
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.06)}
+}
+
+/* shine sweep */
+.main-btn::before{
+    content:"";position:absolute;top:0;left:-75%;
+    width:50%;height:100%;z-index:-1;
+    background:linear-gradient(120deg,transparent,#ffffffaa,transparent);
+    transform:skewX(-20deg);
+    animation:shine 2.6s infinite;
+}
+@keyframes shine{0%{left:-75%}60%,100%{left:130%}}
+
+/* ripple rings */
+.ring{
+    position:absolute;left:50%;bottom:0;
+    width:100%;height:calc(100% - 46px);
+    transform:translateX(-50%);
+    border-radius:22px;
+    border:2px solid #ff50d6;
+    pointer-events:none;
+    animation:ring 2s infinite ease-out;
+}
+.ring.r2{border-color:#00dcff;animation-delay:1s}
+@keyframes ring{
+    0%{opacity:.8;transform:translateX(-50%) scale(1)}
+    100%{opacity:0;transform:translateX(-50%) scale(1.35,1.7)}
+}
+
+.main-btn:hover{
+    animation-play-state:running,paused;
+    transform:translateY(-4px) scale(1.07);
+    box-shadow:0 0 25px #ff35cf,0 0 55px #783cff,0 0 85px #00c9ff;
+}
+.main-btn:active{transform:scale(.96)}
+
+.arrow{display:inline-block;animation:nudge 1s infinite}
+@keyframes nudge{50%{transform:translateX(6px)}}
+
+/* mini features */
+.chips{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+    max-width:560px;
+}
+.chip{
+    font-size:13px;padding:6px 13px;border-radius:20px;
+    background:#ffffff10;border:1px solid #ffffff22;color:#dcdcf3;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:0 16px max(14px,env(safe-area-inset-bottom));
+    font-size:11.5px;line-height:1.6;color:#9b9ebc;
+}
+footer b{color:#ffc45e;font-weight:600}
+
+/* short screens: hide extras so it always stays ONE page */
+@media (max-height:640px){
+    .chips{display:none}
+    .sub{font-size:14px}
+    .hand{font-size:26px}
+}
+@media (max-height:540px){
+    .tag{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+    *,*::before{animation:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<header>
+    <div class="logo-icon">↗</div>
+    <div>অনলাইন <span>ইনকাম</span></div>
+</header>
+
+<main>
+
+    <div class="tag">✦ ডিজিটাল দুনিয়ায় আপনাকে স্বাগতম ✦</div>
+
+    <h1>
+        ঘরে বসেই শুরু করুন<br>
+        <span class="grad">আপনার অনলাইন যাত্রা</span>
+    </h1>
+
+    <p class="sub">
+        ফ্রিল্যান্সিং, ডিজিটাল মার্কেটিং, কনটেন্ট ক্রিয়েশন —
+        অনলাইনে কাজের নতুন সুযোগগুলো জানতে নিচের বাটনে চাপুন।
+    </p>
+
+    <!-- ONLY THIS BUTTON OPENS THE LINK (Facebook) -->
+    <div class="btn-wrap">
+        <div class="hand">👇</div>
+        <span class="ring"></span>
+        <span class="ring r2"></span>
+        <a href="https://jadu3333.site/bn/register?ref=WCQSAVAG"
+           class="main-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+            এখানে ক্লিক করুন <span class="arrow">➜</span>
+        </a>
+    </div>
+
+    <div class="chips">
+        <span class="chip">💻 যেকোনো জায়গা থেকে</span>
+        <span class="chip">🚀 নতুন স্কিল শিখুন</span>
+        <span class="chip">🌐 ডিজিটাল সুযোগ</span>
+    </div>
+
+</main>
+
+<footer>
+    <b>⚠ সতর্কতা:</b> অনলাইন ইনকাম রাতারাতি ধনী হওয়ার পথ নয়, কোনো আয়ের নিশ্চয়তা নেই।
+    টাকা জমা দেওয়ার আগে যেকোনো প্ল্যাটফর্ম যাচাই করুন।<br>
+    © 2026 অনলাইন ইনকাম
+</footer>
+
+<script>
+/* sparkles */
+for(let i=0;i<14;i++){
+    const s=document.createElement('div');
+    s.className='spark';
+    s.style.left=Math.random()*100+'vw';
+    s.style.top=(60+Math.random()*45)+'vh';
+    s.style.animationDelay=(Math.random()*6)+'s';
+    s.style.animationDuration=(5+Math.random()*4)+'s';
+    document.body.appendChild(s);
+}
+
+/* block touch-drag scrolling (button tap still works) */
+document.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+
+/* falling taka / coins */
+const icons=['💵','💸','🪙','💰','৳','💵','🪙'];
+const count=window.innerWidth<600?14:24;
+for(let i=0;i<count;i++){
+    const m=document.createElement('div');
+    m.className='money';
+    const ic=icons[i%icons.length];
+    m.textContent=ic;
+    if(ic==='৳'){m.style.color='#ffd54a';m.style.fontWeight='700';}
+    m.style.left=(Math.random()*96)+'vw';
+    m.style.fontSize=(18+Math.random()*18)+'px';
+    m.style.animationDuration=(7+Math.random()*7)+'s';
+    m.style.animationDelay=(-Math.random()*14)+'s';
+    document.body.appendChild(m);
+}
+
+/* coins bursting out of the button */
+const wrap=document.querySelector('.btn-wrap');
+const burst=['🪙','💵','🪙','💸','🪙','💰'];
+burst.forEach((b,i)=>{
+    const c=document.createElement('span');
+    c.className='coin-burst';
+    c.textContent=b;
+    const ang=(i/burst.length)*Math.PI*2;
+    c.style.setProperty('--x',Math.cos(ang)*170+'px');
+    c.style.setProperty('--y',Math.sin(ang)*90+'px');
+    c.style.setProperty('--r',(Math.random()*360-180)+'deg');
+    c.style.animationDelay=(i*0.4)+'s';
+    wrap.appendChild(c);
+});
+</script>
+
+</body>
+</html>
